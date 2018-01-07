@@ -1,3 +1,4 @@
+//package layoutsample;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +15,7 @@ public class Interface extends JFrame implements ActionListener{
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+	//BorderPane pane= new BorderPane();
 	pane=this.getContentPane();
 	pane.setLayout(new FlowLayout());
 	for (int i=0; i<100; i++){
