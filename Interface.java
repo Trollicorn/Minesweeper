@@ -1,9 +1,10 @@
-//package layoutsample;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 public class Interface extends JFrame implements ActionListener{
     private Container pane;
+    private JPanel panel;
+    private GridLayout grid=new GridLayout(10,10,1,1);
 
     public void actionPerformed(ActionEvent e){
 
@@ -17,9 +18,12 @@ public class Interface extends JFrame implements ActionListener{
 
 	//BorderPane pane= new BorderPane();
 	pane=this.getContentPane();
-	pane.setLayout(new FlowLayout());
+	pane.setLayout(grid);
+	pane.setBackground(Color.BLUE);
 	for (int i=0; i<100; i++){
-	    pane.add(new JButton());
+	    JButton button0= new JButton();
+	    button0.setForeground(Color.WHITE);
+	    pane.add(button0);
 	}
     }
 
