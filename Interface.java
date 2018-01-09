@@ -1,14 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Interface extends JFrame implements ActionListener{
+public class Interface extends JFrame{
     private Container pane;
-    private JPanel panel;
     private GridLayout grid=new GridLayout(10,10,1,1);
-
-    public void actionPerformed(ActionEvent e){
-
-    }
 
     public Interface(){
 	this.setTitle("MineSweeper");
