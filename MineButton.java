@@ -47,14 +47,19 @@ public class MineButton extends JButton{
 
 	public void flag(){
 		flagged = !flagged;
+		if (isFlagged()){
+			setLabel("f");
+		}else{
+			setLabel("-");
+		}
 	}
 
 	public int countMinesAround(){
 		int count = 0; 
 		boolean notRowZero = getRow() != 0; 
 		boolean notColZero = getCol() != 0; 
-		boolean notRowLast = getRow() != board.length;
-		boolean notColLast = getCol() != board[0].length;
+		boolean notRowLast = getRow() != board.length - 1;
+		boolean notColLast = getCol() != board[0].length - 1;
 
 		if (notRowZero && notColZero && board[getRow()-1][getCol()-1] == 'm'){  // top left
 			count += 1;
@@ -62,7 +67,7 @@ public class MineButton extends JButton{
 		if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
 			count += 1;
 		}
-		if (notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
+		if (notRowZero && notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
 			count += 1;
 		}
 		if (notColLast && board[getRow()][getCol()+1] == 'm'){                  // mid right 
