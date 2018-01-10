@@ -43,6 +43,11 @@ public class MineButton extends JButton{
 
 	public void uncover(){
 		covered = false;
+		if (board[getRow()][getCol()] == 'm'){
+			setLabel(""+board[getRow()][getCol()]);
+		}else{
+			setLabel(""+countMinesAround());
+		}
 	}
 
 	public void flag(){

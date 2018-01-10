@@ -11,7 +11,7 @@ public class MineListener extends MouseAdapter{
 
 	public void mouseClicked(MouseEvent click){
 		if (myButton.isCovered()){
-			if (SwingUtilities.isLeftMouseButton(click)){
+			if (SwingUtilities.isLeftMouseButton(click) && !myButton.isFlagged()){
 				myButton.uncover();
 			}
 			if (SwingUtilities.isRightMouseButton(click)){
