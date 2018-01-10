@@ -18,6 +18,7 @@ public class MineButton extends JButton{
 		this.col = col;
 		flagged = false;
 		covered = true;
+		minesAround = countMinesAround();
 	}
 
 	//getters
@@ -48,11 +49,39 @@ public class MineButton extends JButton{
 		flagged = !flagged;
 	}
 
+	public int countMinesAround(){
+		int count = 0; 
+		boolean notRowZero = getRow() != 0; 
+		boolean notColZero = getCol() != 0; 
+		boolean notRowLast = getRow() != board.length;
+		boolean notColLast = getCol() != board[0].length;
 
-
-//	public int minesAround(){
-		
-//	}
+		if (notRowZero && notColZero && board[getRow()-1][getCol()-1] == 'm'){  // top left
+			count += 1;
+		}
+		if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
+			count += 1;
+		}
+		if (notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
+			count += 1;
+		}
+		if (notColLast && board[getRow()][getCol()+1] == 'm'){                  // mid right 
+			count += 1;
+		}
+		if (notRowLast && notColLast && board[getRow()+1][getCol()+1] == 'm'){  // bot right 
+			count += 1;
+		}
+		if (notRowLast && board[getRow()+1][getCol()] == 'm'){                  // bot mid 
+			count += 1;
+		}
+		if (notRowLast && notColZero && board[getRow()+1][getCol()-1] == 'm'){  // bot left 
+			count += 1;
+		}
+		if (notColZero && board[getRow()][getCol()-1] == 'm'){                  // mid left 
+			count += 1;
+		}
+		return count;
+	}
 
 
 
