@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class MineButton extends JButton{
 
-	private char[] board;
+	private char[][] board;
 	private int row;
 	private int col;
 	private boolean flagged;
@@ -11,7 +11,7 @@ public class MineButton extends JButton{
 
 	//Constructors 
 
-	public MineButton(char[] board, int row, int col){
+	public MineButton(char[][] board, int row, int col){
 		super();
 		this.board = board;
 		this.row = row;

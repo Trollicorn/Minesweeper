@@ -4,7 +4,7 @@ import java.awt.event.*;
 public class Interface extends JFrame{
 	private Container pane;
 	private GridLayout grid=new GridLayout(10,10,1,1);
-	private char[][] board = new board[10][10];
+	private char[][] board = new char[10][10];
 
 
 	public Interface(){
@@ -19,17 +19,25 @@ public class Interface extends JFrame{
 		pane=this.getContentPane();
 		pane.setLayout(grid);
 		pane.setBackground(Color.BLUE);
-		for (int i=0; i<100; i++){
-			JButton button0= new JButton();
-			button0.setForeground(Color.WHITE);
-			pane.add(button0);
+		makeBoard();
+		for (int i=0; i < board.length * board[0].length; i++){
+			MineButton button = new MineButton(board, i / 10, i % 10);
+			button.setForeground(Color.WHITE);
+			button.addMouseListener(new MineListener(button));
+			pane.add(button);
 		}
+
 	}
 
 	public void makeBoard(){
+		int minesWanted = 15;
 		for (int i = 0; i < board.length; i++){
 			for (int j = 0; j < board[i].length; j++){
-				
+				if ((int)(Math.random() * 1000) % minesWanted == 0){
+					board[i][j] = 'm';
+				}else{
+					board[i][j] = '-';
+				}
 			}
 		}
 	}
