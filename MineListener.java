@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
 public class MineListener extends MouseAdapter{
 
-    private Container endpane;
     private MineButton myButton;
     private JTextField text;
 
@@ -36,18 +34,20 @@ public class MineListener extends MouseAdapter{
     }
 
     public void EndPage(String message){
-	this.setTitle("The Game Has Ended");
-	this.setSize(200,200);
-	this.setLocation(100,100);
-	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	JFrame endpane=new JFrame();
+	endpane.setTitle("The Game Has Ended");
+	endpane.setSize(500,100);
+	endpane.setLocation(100,100);
+	//endpane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	endpane=this.getContentPane();
+	endpane.getContentPane();
 	endpane.setLayout(new FlowLayout());
 
-	text= new JTextField(30);
+	text= new JTextField(25);
 	text.setText(message);
 	text.setEditable(false);
-
+	endpane.add(text);
+	
 	endpane.setVisible(true);
     }
 
