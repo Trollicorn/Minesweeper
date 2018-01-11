@@ -17,6 +17,7 @@ public class MineListener extends MouseAdapter{
 		if (myButton.getendgame()==true){
 		    GameOver();
 		}
+		myButton.setEnabled(false);
 	    }
 	    if (SwingUtilities.isRightMouseButton(click)){
 		myButton.flag();
@@ -24,6 +25,10 @@ public class MineListener extends MouseAdapter{
 	}
     }
 
+    public void reveal(){
+
+    }
+    
     public void GameOver(){
 	if (myButton.getminehit()==true){
 	    EndPage("Game Over. You Lose.");
