@@ -10,6 +10,9 @@ public class MineButton extends JButton{
     private int minesAround;
     private boolean endgame=false;
     private boolean minehit=false;
+    private boolean zero;
+    private int i;
+    private int j;
 
     //Constructors 
 
@@ -50,10 +53,97 @@ public class MineButton extends JButton{
 	    endgame=true;
 	    minehit=true;
 	}else{
-	    setLabel(""+countMinesAround());
+	    if (countMinesAround()!=0){
+		setLabel(""+countMinesAround());
+		zero=false;
+	    }
+	    else{
+		setLabel("");
+		zero=true;
+	    }
 	}
     }
 
+    public void uncover0(){
+	if (board[i][j]!=0){
+	    setLabel(""+countMinesAround());
+	    zero=false;
+	}
+	else{
+	    setLabel("");
+	    zero=true;
+	}
+    }
+    
+    
+    public void reset(){
+	zero=true;
+	i=row;
+	j=col;
+    }
+    
+    public void multuncover(){
+	if (zero==true){
+	    reset();
+		
+	    //diagonals
+	    
+	    while(i<board.length && j<board[i].length && zero==true){
+		board[i][j].uncover0();
+		i++;
+		j++;
+	    }
+	    
+	    reset();
+	    
+	    while(i>0 && j>0 && zero==true){
+		board[i][j].uncover0();
+		i--;
+		j--;
+	    }
+	    
+	    reset();
+	    
+	    while(i>0 && j<board[i].length && zero==true){
+		board[i][j].uncover0();
+		i--;
+		j++;
+	    }
+
+	    reset();
+
+	    //sides
+	    
+	    while(i>0 && j<board[i].length && zero==true){
+		board[i][j].uncover0();
+		i--;
+	    }
+
+	    reset();
+	    
+	    while(i<board.length && j>0 && zero==true){
+		board[i][j].uncover0();
+		j--;
+	    }
+
+	    reset();
+	    
+	    while(i>0 && j<board[i].length && zero==true){
+		board[i][j].uncover0();
+		i++;
+	    }
+
+	    reset();
+	    
+	    while(i>board.length && j<board[i].length && zero==true){
+		board[i][j].uncover0();
+		j++;
+	    }
+
+	}
+	
+    }
+    
     public boolean getminehit(){
 	return minehit;
     }
