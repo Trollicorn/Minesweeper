@@ -10,17 +10,20 @@ public class MineButton extends JButton{
 	private int minesAround;
 	private boolean endGame=false;
 	private boolean mineHit=false;
-	private boolean zero;
+	private MineButton[][] buttonMap;
+/*	private boolean zero;
 	private int i;
 	private int j;
+*/
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col){
+	public MineButton(char[][] board, int row, int col, Interface interface){
 		super();
 		this.board = board;
 		this.row = row;
 		this.col = col;
+		this.buttonMap = buttonMap;
 		flagged = false;
 		covered = true;
 		minesAround = countMinesAround();
@@ -47,6 +50,9 @@ public class MineButton extends JButton{
     //setters 
 
 	public void uncover(){
+		if (!covered){
+			return;
+		}
 		covered = false;
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
@@ -55,16 +61,45 @@ public class MineButton extends JButton{
 		}else{
 			if (countMinesAround()!=0){
 				setText(""+countMinesAround());
-				zero=false;
+			//	zero=false;
 			}
 			else{
 				setText("");
-				zero=true;
+				boolean notRowZero = getRow() != 0; 
+				boolean notColZero = getCol() != 0; 
+				boolean notRowLast = getRow() != board.length - 1;
+				boolean notColLast = getCol() != board[0].length - 1;
+				if (notRowZero && notColZero){  // top left
+					buttonMap[getRow()-1][getCol()-1].uncover();
+				} 
+				if (notRowZero){                  // top mid 
+					buttonMap[getRow()-1][getCol()].uncover();
+				}
+				if (notRowZero && notColLast){                // top right 
+					buttonMap[getRow()-1][getCol()+1].uncover();
+				}
+				if (notColLast){                  // mid right 
+					buttonMap[getRow()][getCol()+1].uncover();
+				}
+				if (notRowLast && notColLast){  // bot right 
+					buttonMap[getRow()+1][getCol()+1].uncover();
+				}
+				if (notRowLast){                  // bot mid 
+					buttonMap[getRow()+1][getCol()].uncover();
+				}
+				if (notRowLast && notColZero){  // bot left 
+					buttonMap[getRow()+1][getCol()-1].uncover();
+				}
+				if (notColZero){                  // mid left 
+					buttonMap[getRow()][getCol()-1].uncover();
+				}
 			}
+			//	zero=true;
 		}
 	}
 
-	public void uncover0(){
+
+/*	public void uncover0(){
 		if (board[i][j]!=0){
 			setText(""+countMinesAround());
 			zero=false;
@@ -74,15 +109,15 @@ public class MineButton extends JButton{
 			zero=true;
 		}
 	}
+*/	
 	
-	
-	public void reset(){
+/*	public void reset(){
 		zero=true;
 		i=row;
 		j=col;
 	}
-	
-	public void multuncover(){
+*/	
+/*	public void multuncover(){
 		if (zero==true){
 			reset();
 			
@@ -143,7 +178,7 @@ public class MineButton extends JButton{
 		}
 		
 	}
-	
+*/	
 	public boolean isMineHit(){
 		return mineHit;
 	}
@@ -168,32 +203,32 @@ public class MineButton extends JButton{
 		boolean notRowLast = getRow() != board.length - 1;
 		boolean notColLast = getCol() != board[0].length - 1;
 
-	if (notRowZero && notColZero && board[getRow()-1][getCol()-1] == 'm'){  // top left
-		count += 1;
+		if (notRowZero && notColZero && board[getRow()-1][getCol()-1] == 'm'){  // top left
+			count += 1;
+		} 
+		if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
+			count += 1;
+		}
+		if (notRowZero && notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
+			count += 1;
+		}
+		if (notColLast && board[getRow()][getCol()+1] == 'm'){                  // mid right 
+			count += 1;
+		}
+		if (notRowLast && notColLast && board[getRow()+1][getCol()+1] == 'm'){  // bot right 
+			count += 1;
+		}
+		if (notRowLast && board[getRow()+1][getCol()] == 'm'){                  // bot mid 
+			count += 1;
+		}
+		if (notRowLast && notColZero && board[getRow()+1][getCol()-1] == 'm'){  // bot left 
+			count += 1;
+		}
+		if (notColZero && board[getRow()][getCol()-1] == 'm'){                  // mid left 
+			count += 1;
+		}
+		return count;
 	}
-	if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
-		count += 1;
-	}
-	if (notRowZero && notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
-		count += 1;
-	}
-	if (notColLast && board[getRow()][getCol()+1] == 'm'){                  // mid right 
-		count += 1;
-	}
-	if (notRowLast && notColLast && board[getRow()+1][getCol()+1] == 'm'){  // bot right 
-		count += 1;
-	}
-	if (notRowLast && board[getRow()+1][getCol()] == 'm'){                  // bot mid 
-		count += 1;
-	}
-	if (notRowLast && notColZero && board[getRow()+1][getCol()-1] == 'm'){  // bot left 
-		count += 1;
-	}
-	if (notColZero && board[getRow()][getCol()-1] == 'm'){                  // mid left 
-		count += 1;
-	}
-	return count;
-}
 
 
 
