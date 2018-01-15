@@ -24,7 +24,7 @@ public class Interface extends JFrame{
 			MineButton button = new MineButton(board, i / 10, i % 10);
 			button.setForeground(Color.WHITE);
 			button.addMouseListener(new MineListener(button));
-			button.setLabel("");
+			button.setText("");
 			pane.add(button);
 		}
 
