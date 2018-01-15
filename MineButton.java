@@ -8,6 +8,8 @@ public class MineButton extends JButton{
 	private boolean flagged;
 	private boolean covered;
 	private int minesAround;
+	private boolean endGame=false;
+	private boolean mineHit=false;
 
 	//Constructors 
 
@@ -39,15 +41,27 @@ public class MineButton extends JButton{
 		return col;
 	}
 
+	public boolean isMineHit(){
+		return mineHit;
+	}
+
+	public boolean isEndGame(){
+		return endGame;
+	}
+
+
 	//setters 
 
 	public void uncover(){
 		covered = false;
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
+			endGame = true; 
+			mineHit = true;
 		}else{
 			setText(""+countMinesAround());
 		}
+
 	}
 
 	public void flag(){
