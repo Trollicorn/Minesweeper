@@ -6,6 +6,7 @@ public class MineGame extends JFrame{
 	private GridLayout grid=new GridLayout(10,10,1,1);
 	private char[][] board = new char[10][10];
 	private MineButton[][] buttonMap = new MineButton[10][10];
+	private MineGame game;
 
 
 	public MineGame(){
@@ -14,7 +15,7 @@ public class MineGame extends JFrame{
 		this.setLocation(100,100);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
+		game = this;
 
 	//BorderPane pane= new BorderPane();
 		pane=this.getContentPane();
