@@ -44,18 +44,18 @@ public class MineButton extends JButton{
 	public void uncover(){
 		covered = false;
 		if (board[getRow()][getCol()] == 'm'){
-			setLabel(""+board[getRow()][getCol()]);
+			setText(""+board[getRow()][getCol()]);
 		}else{
-			setLabel(""+countMinesAround());
+			setText(""+countMinesAround());
 		}
 	}
 
 	public void flag(){
 		flagged = !flagged;
 		if (isFlagged()){
-			setLabel("f");
+			setText("f");
 		}else{
-			setLabel("-");
+			setText("-");
 		}
 	}
 
