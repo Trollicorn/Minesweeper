@@ -18,7 +18,7 @@ public class MineButton extends JButton{
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col, Interface interface){
+	public MineButton(char[][] board, int row, int col){
 		super();
 		this.board = board;
 		this.row = row;

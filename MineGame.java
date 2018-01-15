@@ -1,14 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Interface extends JFrame{
+public class MineGame extends JFrame{
 	private Container pane;
 	private GridLayout grid=new GridLayout(10,10,1,1);
 	private char[][] board = new char[10][10];
 	private MineButton[][] buttonMap = new MineButton[10][10];
 
 
-	public Interface(){
+	public MineGame(){
 		this.setTitle("MineSweeper");
 		this.setSize(500,500);
 		this.setLocation(100,100);
@@ -22,7 +22,7 @@ public class Interface extends JFrame{
 		pane.setBackground(Color.BLUE);
 		makeBoard();
 		for (int i=0; i < board.length * board[0].length; i++){
-			buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10,this);
+			buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10);
 			buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10]));
 			buttonMap[i / 10][i % 10].setText("");
 	//		MineButton button = new MineButton(board, i / 10, i % 10,buttonMap);
@@ -54,7 +54,7 @@ public class Interface extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		Interface g = new Interface();
+		MineGame g = new MineGame();
 		g.setVisible(true);
 	}
 }
