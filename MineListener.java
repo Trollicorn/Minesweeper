@@ -15,7 +15,7 @@ public class MineListener extends MouseAdapter{
 			if (SwingUtilities.isLeftMouseButton(click) && !myButton.isFlagged()){
 				myButton.uncover();
 				if (myButton.isEndGame()){
-					GameOver();
+					gameOver();
 				}
 				myButton.setEnabled(false);
 			}
@@ -29,16 +29,16 @@ public class MineListener extends MouseAdapter{
 
 	}
 
-	public void GameOver(){
+	public void gameOver(){
 		if (myButton.isMineHit()){
-			EndPage("Game Over. You Lose.");
+			endPage("Game Over. You Lose.");
 		}
 		else{
-			EndPage("Congratulations! You won!");
+			endPage("Congratulations! You won!");
 		}
 	}
 
-	public void EndPage(String message){
+	public void endPage(String message){
 		JFrame endpane=new JFrame();
 		endpane.setTitle("The Game Has Ended");
 		endpane.setSize(500,100);
