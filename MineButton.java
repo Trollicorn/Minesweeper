@@ -12,6 +12,7 @@ public class MineButton extends JButton{
 	private boolean endGame=false;
 	private boolean mineHit=false;
 	private MineButton[][] buttonMap;
+	private boolean firstHit=true;
 /*	private boolean zero;
 	private int i;
 	private int j;
@@ -48,7 +49,15 @@ public class MineButton extends JButton{
 		return col;
 	}
 
+	public boolean isFirstHit(){
+		return firstHit;
+	}
+
     //setters 
+
+	public void notFirst(){
+		firstHit = false;
+	}
 
 	public void uncover(){
 		if (!covered){
@@ -194,7 +203,7 @@ public class MineButton extends JButton{
 		if (isFlagged()){
 			setText("f");
 		}else{
-			setText("-");
+			setText("");
 		}
 	}
 

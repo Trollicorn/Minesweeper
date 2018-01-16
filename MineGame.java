@@ -24,7 +24,7 @@ public class MineGame extends JFrame{
 		makeBoard();
 		for (int i=0; i < board.length * board[0].length; i++){
 			buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10, buttonMap);
-			buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10]));
+			buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10],buttonMap,board));
 			buttonMap[i / 10][i % 10].setText("");
 	/*		MineButton button = new MineButton(board, i / 10, i % 10,buttonMap);
 			buttonMap[i / 10][i % 10] = button;
@@ -42,10 +42,10 @@ public class MineGame extends JFrame{
 
 
 	public void makeBoard(){
-		int minesWanted = 25;
+		int denominator = 5;
 		for (int i = 0; i < board.length; i++){
 			for (int j = 0; j < board[i].length; j++){
-				if ((int)(Math.random() * 1000) % minesWanted == 0){
+				if ((int)(Math.random() * 1000) % denominator == 0){
 					board[i][j] = 'm';
 				}else{
 					board[i][j] = '-';
