@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MineButton extends JButton{
 
@@ -18,7 +19,7 @@ public class MineButton extends JButton{
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col){
+	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap){
 		super();
 		this.board = board;
 		this.row = row;
@@ -54,6 +55,7 @@ public class MineButton extends JButton{
 			return;
 		}
 		covered = false;
+		setBackground(Color.LIGHT_GRAY);
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
 			endGame=true;
