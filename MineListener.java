@@ -57,22 +57,77 @@ public class MineListener extends MouseAdapter{
 				}
 				myButton.uncover();
 				if (myButton.isEndGame()){
-					gameOver();
+					gameOver(myButton);
 				}
-				myButton.setEnabled(false);
+			//	myButton.setEnabled(false);
 			}
 			if (SwingUtilities.isRightMouseButton(click)){
 				myButton.flag();
 			}
+		}else{
+			if (myButton.countFlagsAround() == myButton.countMinesAround()){
+				boolean notRowZero = myButton.getRow() != 0; 
+				boolean notColZero = myButton.getCol() != 0; 
+				boolean notRowLast = myButton.getRow() != board.length - 1;
+				boolean notColLast = myButton.getCol() != board[0].length - 1;
+
+				if (notRowZero && notColZero && !buttonMap[myButton.getRow()-1][myButton.getCol()-1].isFlagged()){  
+					buttonMap[myButton.getRow()-1][myButton.getCol()-1].uncover(); //top left 
+					if (buttonMap[myButton.getRow()-1][myButton.getCol()-1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()-1][myButton.getCol()-1]);
+					}
+				} 
+				if (notRowZero && !buttonMap[myButton.getRow()-1][myButton.getCol()].isFlagged()){              
+					buttonMap[myButton.getRow()-1][myButton.getCol()].uncover(); //top mid 
+					if (buttonMap[myButton.getRow()-1][myButton.getCol()].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()-1][myButton.getCol()]);
+					}
+				}
+				if (notRowZero && notColLast && !buttonMap[myButton.getRow()-1][myButton.getCol()+1].isFlagged()){               
+					buttonMap[myButton.getRow()-1][myButton.getCol()+1].uncover(); //top right 
+					if (buttonMap[myButton.getRow()-1][myButton.getCol()+1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()-1][myButton.getCol()+1]);
+					}
+				}
+				if (notColLast && !buttonMap[myButton.getRow()][myButton.getCol()+1].isFlagged()){	
+					buttonMap[myButton.getRow()][myButton.getCol()+1].uncover(); //mid right 
+					if (buttonMap[myButton.getRow()][myButton.getCol()+1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()][myButton.getCol()+1]);
+					}
+				}
+				if (notRowLast && notColLast && !buttonMap[myButton.getRow()+1][myButton.getCol()+1].isFlagged()){ 
+					buttonMap[myButton.getRow()+1][myButton.getCol()+1].uncover(); //bot right
+					if (buttonMap[myButton.getRow()+1][myButton.getCol()+1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()+1][myButton.getCol()+1]);
+					}
+				}
+				if (notRowLast && !buttonMap[myButton.getRow()+1][myButton.getCol()].isFlagged()){  
+					buttonMap[myButton.getRow()+1][myButton.getCol()].uncover(); //bot mid
+					if (buttonMap[myButton.getRow()+1][myButton.getCol()].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()+1][myButton.getCol()]);
+					}
+				}
+				if (notRowLast && notColZero && !buttonMap[myButton.getRow()+1][myButton.getCol()-1].isFlagged()){ 
+					buttonMap[myButton.getRow()+1][myButton.getCol()-1].uncover(); //bot left
+					if (buttonMap[myButton.getRow()+1][myButton.getCol()-1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()+1][myButton.getCol()-1]);
+					}
+				}
+				if (notColZero && !buttonMap[myButton.getRow()][myButton.getCol()-1].isFlagged()){ 
+					buttonMap[myButton.getRow()][myButton.getCol()-1].uncover(); // mid left 
+					if (buttonMap[myButton.getRow()][myButton.getCol()-1].isEndGame()){
+						gameOver(buttonMap[myButton.getRow()][myButton.getCol()-1]);
+					}
+				}
+
+			}
+
 		}
 	}
 
-	public void reveal(){
 
-	}
-
-	public void gameOver(){
-		if (myButton.isMineHit()){
+	public void gameOver(MineButton button){
+		if (button.isMineHit()){
 			endPage("Game Over. You Lose.");
 		}
 		else{

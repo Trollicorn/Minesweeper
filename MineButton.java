@@ -28,7 +28,6 @@ public class MineButton extends JButton{
 		this.buttonMap = buttonMap;
 		flagged = false;
 		covered = true;
-		minesAround = countMinesAround();
 	}
 
     //getters
@@ -244,6 +243,41 @@ public class MineButton extends JButton{
 		}
 		return count;
 	}
+
+	public int countFlagsAround(){
+		int count = 0; 
+		boolean notRowZero = getRow() != 0; 
+		boolean notColZero = getCol() != 0; 
+		boolean notRowLast = getRow() != board.length - 1;
+		boolean notColLast = getCol() != board[0].length - 1;
+
+		if (notRowZero && notColZero && buttonMap[getRow()-1][getCol()-1].isFlagged()){  // top left
+			count += 1;
+		} 
+		if (notRowZero && buttonMap[getRow()-1][getCol()].isFlagged()){                  // top mid 
+			count += 1;
+		}
+		if (notRowZero && notColLast && buttonMap[getRow()-1][getCol()+1].isFlagged()){                // top right 
+			count += 1;
+		}
+		if (notColLast && buttonMap[getRow()][getCol()+1].isFlagged()){                  // mid right 
+			count += 1;
+		}
+		if (notRowLast && notColLast && buttonMap[getRow()+1][getCol()+1].isFlagged()){  // bot right 
+			count += 1;
+		}
+		if (notRowLast && buttonMap[getRow()+1][getCol()].isFlagged()){                  // bot mid 
+			count += 1;
+		}
+		if (notRowLast && notColZero && buttonMap[getRow()+1][getCol()-1].isFlagged()){  // bot left 
+			count += 1;
+		}
+		if (notColZero && buttonMap[getRow()][getCol()-1].isFlagged()){                  // mid left 
+			count += 1;
+		}
+		return count;
+	}
+
 
 	public boolean allUncovered(){
 		for (int i = 0; i < board.length; i ++){
