@@ -13,6 +13,7 @@ public class MineButton extends JButton{
 	private boolean mineHit=false;
 	private MineButton[][] buttonMap;
 	private boolean firstHit=true;
+	private boolean revealTime=false;
 /*	private boolean zero;
 	private int i;
 	private int j;
@@ -28,6 +29,7 @@ public class MineButton extends JButton{
 		this.buttonMap = buttonMap;
 		flagged = false;
 		covered = true;
+		revealTime = false;
 	}
 
     //getters
@@ -52,10 +54,26 @@ public class MineButton extends JButton{
 		return firstHit;
 	}
 
+	public boolean isRevealTime(){
+		return revealTime;
+	}
+
+	public boolean isMineHit(){
+		return mineHit;
+	}
+
+	public boolean isEndGame(){
+		return endGame;
+	}
+
     //setters 
 
 	public void notFirst(){
 		firstHit = false;
+	}
+
+	public void timeToReveal(){
+		revealTime = true;
 	}
 
 	public void uncover(){
@@ -64,6 +82,9 @@ public class MineButton extends JButton{
 		}
 		covered = false;
 		setBackground(Color.LIGHT_GRAY);
+		if (buttonMap[0][0].isRevealTime()){
+			setBackground(Color.CYAN);
+		}
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
 			endGame=true;
@@ -193,13 +214,7 @@ public class MineButton extends JButton{
 		
 	}
 */	
-	public boolean isMineHit(){
-		return mineHit;
-	}
 
-	public boolean isEndGame(){
-		return endGame;
-	}
 
 	public void flag(){
 		flagged = !flagged;

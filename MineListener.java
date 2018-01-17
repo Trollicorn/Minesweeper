@@ -127,12 +127,14 @@ public class MineListener extends MouseAdapter{
 
 
 	public void gameOver(MineButton button,boolean showMessage){
-		if (showMessage){
+		if (showMessage && !buttonMap[0][0].isRevealTime()){
 			if (button.isMineHit()){
 				endPage("Game Over. You Lose.");
+				reveal();
 			}
 			else{
 				endPage("Congratulations! You won!");
+				reveal();
 			}
 		}
 	}
@@ -153,6 +155,24 @@ public class MineListener extends MouseAdapter{
 		endpane.add(text);
 
 		endpane.setVisible(true);
+	}
+
+	public void reveal(){
+		buttonMap[0][0].timeToReveal();
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board[0].length; j++){
+				buttonMap[i][j].uncover();
+			}
+		}
+		disableAll();
+	}
+
+	public void disableAll(){
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board[0].length; j++){
+				buttonMap[i][j].setEnabled(false);
+			}
+		}
 	}
 
 }
