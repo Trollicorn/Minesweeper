@@ -107,6 +107,10 @@ public class MineButton extends JButton{
 			}
 			//	zero=true;
 		}
+		if (allUncovered()){
+			endGame = true;
+		}
+
 	}
 
 
@@ -239,6 +243,17 @@ public class MineButton extends JButton{
 			count += 1;
 		}
 		return count;
+	}
+
+	public boolean allUncovered(){
+		for (int i = 0; i < board.length; i ++){
+			for (int j = 0; j < board[0].length; j++){
+				if (board[i][j] == '-' && buttonMap[i][j].isCovered()){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 
