@@ -3,7 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 public class Interface extends JFrame implements ActionListener{
     private Container pane;
-    private GridLayout grid=new GridLayout(11,11,1,1);
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private GridLayout grid=new GridLayout(10,10,1,1);
     private char[][] board = new char[10][10];
     private JButton newgame;
     //private GridBagConstraints cButton=new GridBagConstraints();
@@ -20,10 +22,7 @@ public class Interface extends JFrame implements ActionListener{
 
     public Interface(){
 	reset();
-	newgame= new JButton ("New Game");
-	newgame.addActionListener(this);
-	newgame.setBounds(11,11,10,1);
-	pane.add(newgame);
+	menuset();
     }
 
     public void reset(){
@@ -52,6 +51,29 @@ public class Interface extends JFrame implements ActionListener{
 	    pane.add(button);
 	}
 
+    }
+
+    public void menuset(){
+	//this.setTitle("Menu");
+	//this.setSize(10;/0,100);
+	//this.setLocation(500,100);
+	//this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+	//menu=this.getContentPane();
+	//menu.setBackground(Color.GREEN);
+
+	menuBar= new JMenuBar();
+
+	menu=new JMenu("Options");
+	menu.getAccessibleContext().setAccessibleDescription("Select Options");
+
+	newgame= new JButton ("New Game");
+	newgame.addActionListener(this);
+	//newgame.setBounds(11,11,10,1);
+	menu.add(newgame);
+
+	menuBar.add(menu);
+	setJMenuBar(menuBar);
     }
 
     public void makeBoard(){
