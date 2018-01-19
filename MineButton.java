@@ -10,70 +10,130 @@ public class MineButton extends JButton{
 	private int minesAround;
 	private boolean endGame=false;
 	private boolean mineHit=false;
-
+	private MineButton[][] buttonMap;
+	private boolean firstHit=true;
+	private boolean revealTime=false;
+/*	private boolean zero;
+	private int i;
+	private int j;
+*/
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col){
+	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap){
 		super();
 		this.board = board;
 		this.row = row;
 		this.col = col;
+		this.buttonMap = buttonMap;
 		flagged = false;
 		covered = true;
-		minesAround = countMinesAround();
+		revealTime = false;
 	}
 
     //getters
 
-	public boolean isFlagged(){
-		return flagged;
-	}
+    public boolean isFlagged(){
+	return flagged;
+    }
 
-	public boolean isCovered(){
-		return covered;
-	}
+    public boolean isCovered(){
+	return covered;
+    }
 
-	public int getRow(){
-		return row;
-	}
+    public int getRow(){
+	return row;
+    }
 
-	public int getCol(){
-		return col;
-	}
+    public int getCol(){
+	return col;
+    }
 
-	public boolean isMineHit(){
-		return mineHit;
-	}
+    public boolean isFirstHit(){
+	return firstHit;
+    }
 
-	public boolean isEndGame(){
-		return endGame;
-	}
+    public boolean isRevealTime(){
+	return revealTime;
+    }
+
+    public boolean isMineHit(){
+	return mineHit;
+    }
+
+    public boolean isEndGame(){
+	return endGame;
+    }
 
 
     //setters 
 
-	public void uncover(){
-		covered = false;
+    public void uncover(){
+	if (!covered){
+	    return;
+	}
+	covered = false;
+	setBackground(Color.LIGHT_GRAY);
+	if (buttonMap[0][0].isRevealTime()){
+	    setBackground(Color.CYAN);
+	}
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
-			endGame = true; 
-			mineHit = true;
+			endGame=true;
+			mineHit=true;
 		}else{
-			setText(""+countMinesAround());
+			if (countMinesAround()!=0){
+				setText(""+countMinesAround());
+			//	zero=false;
+			}
+			else{
+				setText("");
+				boolean notRowZero = getRow() != 0; 
+				boolean notColZero = getCol() != 0; 
+				boolean notRowLast = getRow() != board.length - 1;
+				boolean notColLast = getCol() != board[0].length - 1;
+				if (notRowZero && notColZero){  // top left
+					buttonMap[getRow()-1][getCol()-1].uncover();
+				} 
+				if (notRowZero){                  // top mid 
+					buttonMap[getRow()-1][getCol()].uncover();
+				}
+				if (notRowZero && notColLast){                // top right 
+					buttonMap[getRow()-1][getCol()+1].uncover();
+				}
+				if (notColLast){                  // mid right 
+				    buttonMap[getRow()][getCol()+1].uncover();
+				}
+				if (notRowLast && notColLast){  // bot right 
+				    buttonMap[getRow()+1][getCol()+1].uncover();
+				}
+				if (notRowLast){                  // bot mid 
+				    buttonMap[getRow()+1][getCol()].uncover();
+				}
+				if (notRowLast && notColZero){  // bot left 
+				    buttonMap[getRow()+1][getCol()-1].uncover();
+				}
+				if (notColZero){                  // mid left 
+				    buttonMap[getRow()][getCol()-1].uncover();
+				}
+			}
+			//	zero=true;
+		}
+		if (allUncovered()){
+		    endGame = true;
 		}
 
+}
+    
+    public void flag(){
+	flagged = !flagged;
+	if (isFlagged()){
+	    setText("f");
+	}else{
+	    setText("-");
 	}
 
-	public void flag(){
-		flagged = !flagged;
-		if (isFlagged()){
-			setText("f");
-		}else{
-			setText("-");
-		}
-
-	}
+    }
 
 
 	public int countMinesAround(){
