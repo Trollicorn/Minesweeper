@@ -5,16 +5,18 @@ public class Interface extends JFrame implements ActionListener{
     private Container pane;
     private JMenuBar menuBar;
     private JMenu menu;
-    private JButton newgame;
-    private GridLayout grid=new GridLayout(10,10,1,1);
-    private char[][] board = new char[10][10];
-    private MineButton[][] buttonMap = new MineButton[10][10];
+    private JButton easy;
+    private JButton med;
+    private JButton hard;
+    private GridLayout grid;//=new GridLayout(10,10,1,1);
+    private char[][] board;// = new char[10][10];
+    private MineButton[][] buttonMap;// = new MineButton[10][10];
     private JTextField flagnum;
     private int mines;
     //private MineGame game;
 
     public Interface(){
-	reset();
+	reset(10,10,500,500);
 	menuset();
 	flag();
     }
@@ -22,18 +24,33 @@ public class Interface extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
 	flagnum.setText(flagcount()+"/"+mines+" mines flagged");
 	String s=e.getActionCommand();
-	if (s.equals("New Game")){
+	if (s.equals("Easy")){
 	    this.dispose();
 	    System.out.println(s);
 	    Interface f= new Interface();
 	    f.setVisible(true);
 	}
+	if (s.equals("Medium")){
+	    this.dispose();
+	    System.out.println(s);
+	    Interface f= new Interface("med");
+	    f.setVisible(true);
+	}
+	if (s.equals("Hard")){
+	    this.dispose();
+	    System.out.println(s);
+	    Interface f= new Interface("hard");
+	    f.setVisible(true);
+	}
     }
 
 
-    public void reset(){
+    public void reset(int h,int w, int a, int b){
+	grid= new GridLayout(h,w,1,1);
+	board= new char[h][w];
+	buttonMap= new MineButton[h][w];
 	this.setTitle("MineSweeper");
-	this.setSize(500,500);
+	this.setSize(a,b);
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -70,12 +87,22 @@ public class Interface extends JFrame implements ActionListener{
 	//menu=new JMenu("Options");
 	//menu.getAccessibleContext().setAccessibleDescription("Select Options");
 
-	newgame= new JButton ("New Game");
-	newgame.addActionListener(this);
+	menu= new JMenu ("New Game");
+	menu.getAccessibleContext().setAccessibleDescription("Create a new game");
+	easy= new JButton ("Easy");
+	easy.addActionListener(this);
 	//newgame.setBounds(11,11,10,1);
-	//menu.add(newgame);
+	menu.add(easy);
 
-	menuBar.add(newgame);
+	med=new JButton ("Medium");
+	med.addActionListener(this);
+	menu.add(med);
+
+	hard=new JButton ("Hard");
+	med.addActionListener(this);
+	menu.add(hard);
+
+	menuBar.add(menu);
 	setJMenuBar(menuBar);
     }
 
@@ -98,18 +125,33 @@ public class Interface extends JFrame implements ActionListener{
 	return count;
     }
 
+    // ImageIcon mineicon=new ImageIcon("bomb.png");
     public void makeBoard(){
 	int denominator = 5;
 	for (int i = 0; i < board.length; i++){
 	    for (int j = 0; j < board[i].length; j++){
 		if ((int)(Math.random() * 1000) % denominator == 0){
-		    board[i][j] = 'm';
+		    board[i][j]='m';
 		    mines++;
 		}else{
 		    board[i][j] = '-';
 		}
 	    }
 	}
+    }
+
+    public Interface (String mode){
+	if (mode=="med"){
+	    reset(50,50,750,750);
+	    menuset();
+	    flag();
+	}
+	if (mode=="hard"){
+	    reset(100,100,1000,1000);
+	    menuset();
+	    flag();
+	}
+
     }
 
     public static void main(String[] args) {
