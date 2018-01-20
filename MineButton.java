@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MineButton extends JButton{
 
@@ -33,50 +34,57 @@ public class MineButton extends JButton{
 
     //getters
 
-    public boolean isFlagged(){
-	return flagged;
-    }
+	public boolean isFlagged(){
+		return flagged;
+	}
 
-    public boolean isCovered(){
-	return covered;
-    }
+	public boolean isCovered(){
+		return covered;
+	}
 
-    public int getRow(){
-	return row;
-    }
+	public int getRow(){
+		return row;
+	}
 
-    public int getCol(){
-	return col;
-    }
+	public int getCol(){
+		return col;
+	}
 
-    public boolean isFirstHit(){
-	return firstHit;
-    }
+	public boolean isFirstHit(){
+		return firstHit;
+	}
 
-    public boolean isRevealTime(){
-	return revealTime;
-    }
+	public boolean isRevealTime(){
+		return revealTime;
+	}
 
-    public boolean isMineHit(){
-	return mineHit;
-    }
+	public boolean isMineHit(){
+		return mineHit;
+	}
 
-    public boolean isEndGame(){
-	return endGame;
-    }
-
+	public boolean isEndGame(){
+		return endGame;
+	}
 
     //setters 
 
-    public void uncover(){
-	if (!covered){
-	    return;
+	public void notFirst(){
+		firstHit = false;
 	}
-	covered = false;
-	setBackground(Color.LIGHT_GRAY);
-	if (buttonMap[0][0].isRevealTime()){
-	    setBackground(Color.CYAN);
+
+	public void timeToReveal(){
+		revealTime = true;
 	}
+
+	public void uncover(){
+		if (!covered){
+			return;
+		}
+		covered = false;
+		setBackground(Color.LIGHT_GRAY);
+		if (buttonMap[0][0].isRevealTime()){
+			setBackground(Color.CYAN);
+		}
 		if (board[getRow()][getCol()] == 'm'){
 			setText(""+board[getRow()][getCol()]);
 			endGame=true;
@@ -102,39 +110,114 @@ public class MineButton extends JButton{
 					buttonMap[getRow()-1][getCol()+1].uncover();
 				}
 				if (notColLast){                  // mid right 
-				    buttonMap[getRow()][getCol()+1].uncover();
+					buttonMap[getRow()][getCol()+1].uncover();
 				}
 				if (notRowLast && notColLast){  // bot right 
-				    buttonMap[getRow()+1][getCol()+1].uncover();
+					buttonMap[getRow()+1][getCol()+1].uncover();
 				}
 				if (notRowLast){                  // bot mid 
-				    buttonMap[getRow()+1][getCol()].uncover();
+					buttonMap[getRow()+1][getCol()].uncover();
 				}
 				if (notRowLast && notColZero){  // bot left 
-				    buttonMap[getRow()+1][getCol()-1].uncover();
+					buttonMap[getRow()+1][getCol()-1].uncover();
 				}
 				if (notColZero){                  // mid left 
-				    buttonMap[getRow()][getCol()-1].uncover();
+					buttonMap[getRow()][getCol()-1].uncover();
 				}
 			}
 			//	zero=true;
 		}
 		if (allUncovered()){
-		    endGame = true;
+			endGame = true;
 		}
 
-}
-    
-    public void flag(){
-	flagged = !flagged;
-	if (isFlagged()){
-	    setText("f");
-	}else{
-	    setText("-");
 	}
 
-    }
 
+/*	public void uncover0(){
+		if (board[i][j]!=0){
+			setText(""+countMinesAround());
+			zero=false;
+		}
+		else{
+			setText("");
+			zero=true;
+		}
+	}
+*/	
+	
+/*	public void reset(){
+		zero=true;
+		i=row;
+		j=col;
+	}
+*/	
+/*	public void multuncover(){
+		if (zero==true){
+			reset();
+			
+	    //diagonals
+			
+			while(i<board.length && j<board[i].length && zero==true){
+				board[i][j].uncover0();
+				i++;
+				j++;
+			}
+			
+			reset();
+			
+			while(i>0 && j>0 && zero==true){
+				board[i][j].uncover0();
+				i--;
+				j--;
+			}
+			
+			reset();
+			
+			while(i>0 && j<board[i].length && zero==true){
+				board[i][j].uncover0();
+				i--;
+				j++;
+			}
+			reset();
+	    //sides
+			
+			while(i>0 && j<board[i].length && zero==true){
+				board[i][j].uncover0();
+				i--;
+			}
+			reset();
+			
+			while(i<board.length && j>0 && zero==true){
+				board[i][j].uncover0();
+				j--;
+			}
+			reset();
+			
+			while(i>0 && j<board[i].length && zero==true){
+				board[i][j].uncover0();
+				i++;
+			}
+			reset();
+			
+			while(i>board.length && j<board[i].length && zero==true){
+				board[i][j].uncover0();
+				j++;
+			}
+		}
+		
+	}
+*/	
+
+
+	public void flag(){
+		flagged = !flagged;
+		if (isFlagged()){
+			setText("f");
+		}else{
+			setText("");
+		}
+	}
 
 	public int countMinesAround(){
 		int count = 0; 
@@ -145,7 +228,7 @@ public class MineButton extends JButton{
 
 		if (notRowZero && notColZero && board[getRow()-1][getCol()-1] == 'm'){  // top left
 			count += 1;
-		}
+		} 
 		if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
 			count += 1;
 		}
@@ -169,4 +252,54 @@ public class MineButton extends JButton{
 		}
 		return count;
 	}
+
+	public int countFlagsAround(){
+		int count = 0; 
+		boolean notRowZero = getRow() != 0; 
+		boolean notColZero = getCol() != 0; 
+		boolean notRowLast = getRow() != board.length - 1;
+		boolean notColLast = getCol() != board[0].length - 1;
+
+		if (notRowZero && notColZero && buttonMap[getRow()-1][getCol()-1].isFlagged()){  // top left
+			count += 1;
+		} 
+		if (notRowZero && buttonMap[getRow()-1][getCol()].isFlagged()){                  // top mid 
+			count += 1;
+		}
+		if (notRowZero && notColLast && buttonMap[getRow()-1][getCol()+1].isFlagged()){                // top right 
+			count += 1;
+		}
+		if (notColLast && buttonMap[getRow()][getCol()+1].isFlagged()){                  // mid right 
+			count += 1;
+		}
+		if (notRowLast && notColLast && buttonMap[getRow()+1][getCol()+1].isFlagged()){  // bot right 
+			count += 1;
+		}
+		if (notRowLast && buttonMap[getRow()+1][getCol()].isFlagged()){                  // bot mid 
+			count += 1;
+		}
+		if (notRowLast && notColZero && buttonMap[getRow()+1][getCol()-1].isFlagged()){  // bot left 
+			count += 1;
+		}
+		if (notColZero && buttonMap[getRow()][getCol()-1].isFlagged()){                  // mid left 
+			count += 1;
+		}
+		return count;
+	}
+
+
+	public boolean allUncovered(){
+		for (int i = 0; i < board.length; i ++){
+			for (int j = 0; j < board[0].length; j++){
+				if (board[i][j] == '-' && buttonMap[i][j].isCovered()){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+
+
+
 }

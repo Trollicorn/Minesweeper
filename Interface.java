@@ -5,10 +5,16 @@ public class Interface extends JFrame implements ActionListener{
     private Container pane;
     private JMenuBar menuBar;
     private JMenu menu;
+    private JButton newgame;
     private GridLayout grid=new GridLayout(10,10,1,1);
     private char[][] board = new char[10][10];
-    private JButton newgame;
+    private MineButton[][] buttonMap = new MineButton[10][10];
+    //private MineGame game;
 
+    public Interface(){
+	reset();
+	menuset();
+    }
 
     public void actionPerformed(ActionEvent e){
 	String s=e.getActionCommand();
@@ -19,19 +25,15 @@ public class Interface extends JFrame implements ActionListener{
 	    f.setVisible(true);
 	}
     }
-    
-    public Interface(){
-	reset();
-	menuset();
-    }
-    
+
+
     public void reset(){
 	this.setTitle("MineSweeper");
 	this.setSize(500,500);
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
+	//	game = this;
 
 	//BorderPane pane= new BorderPane();
 	pane=this.getContentPane();
@@ -39,16 +41,33 @@ public class Interface extends JFrame implements ActionListener{
 	pane.setBackground(Color.BLUE);
 	makeBoard();
 	for (int i=0; i < board.length * board[0].length; i++){
-	    MineButton button = new MineButton(board, i / 10, i % 10);
-	    button.setForeground(Color.WHITE);
-	    button.addMouseListener(new MineListener(button));
-	    button.setText("-");
-	    pane.add(button);
+	    buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10, buttonMap);
+	    buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10],buttonMap,board));
+	    buttonMap[i / 10][i % 10].setText("");
+	    /*		MineButton button = new MineButton(board, i / 10, i % 10,buttonMap);
+			buttonMap[i / 10][i % 10] = button;
+			button.setForeground(Color.WHITE);
+			button.addMouseListener(new MineListener(button));
+			button.setText("");
+	    */		pane.add(buttonMap[i / 10][i % 10]);
 	}
 
     }
 
-    public void menuset(){
+    public MineButton getButton(int row, int col){
+	return buttonMap[row][col];
+    }
+
+
+public void menuset(){
+	//this.setTitle("Menu");
+	//this.setSize(10;/0,100);
+	//this.setLocation(500,100);
+	//this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+	//menu=this.getContentPane();
+	//menu.setBackground(Color.GREEN);
+
 	menuBar= new JMenuBar();
 
 	menu=new JMenu("Options");
@@ -62,12 +81,13 @@ public class Interface extends JFrame implements ActionListener{
 	menuBar.add(menu);
 	setJMenuBar(menuBar);
     }
-    
+
+
     public void makeBoard(){
-	int minesWanted = 15;
+	int denominator = 5;
 	for (int i = 0; i < board.length; i++){
 	    for (int j = 0; j < board[i].length; j++){
-		if ((int)(Math.random() * 1000) % minesWanted == 0){
+		if ((int)(Math.random() * 1000) % denominator == 0){
 		    board[i][j] = 'm';
 		}else{
 		    board[i][j] = '-';
