@@ -13,11 +13,15 @@ public class Interface extends JFrame implements ActionListener{
     private MineButton[][] buttonMap;// = new MineButton[10][10];
     private JTextField flagnum;
     private int mines;
+    private int h;
+    private int w;
     //private MineGame game;
 
     public Interface(){
 	reset(10,10,500,500);
 	menuset();
+	h=10;
+	w=10;
 	flag();
     }
 
@@ -27,13 +31,13 @@ public class Interface extends JFrame implements ActionListener{
 	if (s.equals("Easy")){
 	    this.dispose();
 	    System.out.println(s);
-	    Interface f= new Interface();
+	    Interface f= new Interface("easy");
 	    f.setVisible(true);
 	}
 	if (s.equals("Medium")){
 	    this.dispose();
 	    System.out.println(s);
-	    Interface f= new Interface("med");
+	    Interface f= new Interface();
 	    f.setVisible(true);
 	}
 	if (s.equals("Hard")){
@@ -62,16 +66,16 @@ public class Interface extends JFrame implements ActionListener{
 	pane.setBackground(Color.BLUE);
 	makeBoard();
 	for (int i=0; i < board.length * board[0].length; i++){
-	    buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10, buttonMap);
-	    buttonMap[i/10][i%10].addActionListener(this);
-	    buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10],buttonMap,board));
-	    buttonMap[i / 10][i % 10].setText("");
+	    buttonMap[i / h][i % w] = new MineButton(board, i / h, i % w, buttonMap);
+	    buttonMap[i/h][i%w].addActionListener(this);
+	    buttonMap[i / h][i % w].addMouseListener(new MineListener(buttonMap[i / h][i % w],buttonMap,board));
+	    buttonMap[i / h][i % w].setText("");
 	    /*		MineButton button = new MineButton(board, i / 10, i % 10,buttonMap);
 			buttonMap[i / 10][i % 10] = button;
 			button.setForeground(Color.WHITE);
 			button.addMouseListener(new MineListener(button));
 			button.setText("");
-	    */		pane.add(buttonMap[i / 10][i % 10]);
+	    */		pane.add(buttonMap[i / h][i % w]);
 	}
 
     }
@@ -99,7 +103,7 @@ public class Interface extends JFrame implements ActionListener{
 	menu.add(med);
 
 	hard=new JButton ("Hard");
-	med.addActionListener(this);
+	hard.addActionListener(this);
 	menu.add(hard);
 
 	menuBar.add(menu);
@@ -116,7 +120,7 @@ public class Interface extends JFrame implements ActionListener{
     public int flagcount(){
 	int count=0;
 	for (int i=0; i < board.length * board[0].length; i++){
-	    if((buttonMap[i / 10][i % 10]).isFlagged()){
+	    if((buttonMap[i / h][i % w]).isFlagged()){
 		count++;
 	    }
 	    else{}
@@ -141,13 +145,17 @@ public class Interface extends JFrame implements ActionListener{
     }
 
     public Interface (String mode){
-	if (mode=="med"){
-	    reset(50,50,750,750);
+	if (mode.equals("easy")){
+	    reset(5,5,500,500);
+	    h=5;
+	    w=5;
 	    menuset();
 	    flag();
 	}
-	if (mode=="hard"){
-	    reset(100,100,1000,1000);
+	if (mode.equals("hard")){
+	    reset(20,20,1000,1000);
+	    h=20;
+	    w=20;
 	    menuset();
 	    flag();
 	}
