@@ -9,6 +9,8 @@ public class Interface extends JFrame implements ActionListener{
     private GridLayout grid=new GridLayout(10,10,1,1);
     private char[][] board = new char[10][10];
     private MineButton[][] buttonMap = new MineButton[10][10];
+    private JTextField flagnum;
+    private int mines;
     //private MineGame game;
 
     public Interface(){
@@ -59,15 +61,7 @@ public class Interface extends JFrame implements ActionListener{
     }
 
 
-public void menuset(){
-	//this.setTitle("Menu");
-	//this.setSize(10;/0,100);
-	//this.setLocation(500,100);
-	//this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-
-	//menu=this.getContentPane();
-	//menu.setBackground(Color.GREEN);
-
+    public void menuset(){
 	menuBar= new JMenuBar();
 
 	menu=new JMenu("Options");
@@ -78,10 +72,27 @@ public void menuset(){
 	//newgame.setBounds(11,11,10,1);
 	menu.add(newgame);
 
+	flagnum=new JTextField(5);
+	flagnum.setText(flagcount()+"/"+mines+" mines flagged");
+	flagnum.setEditable(false);
+
 	menuBar.add(menu);
+	menuBar.add(flagnum);
 	setJMenuBar(menuBar);
     }
 
+
+    public int flagcount(){
+	int count=0;
+	for (int i=0; i < board.length * board[0].length; i++){
+	    if((buttonMap[i / 10][i % 10]).isFlagged()){
+		count++;
+	    }
+	    else{}
+	}    
+
+	return count;
+    }
 
     public void makeBoard(){
 	int denominator = 5;
@@ -89,6 +100,7 @@ public void menuset(){
 	    for (int j = 0; j < board[i].length; j++){
 		if ((int)(Math.random() * 1000) % denominator == 0){
 		    board[i][j] = 'm';
+		    mines++;
 		}else{
 		    board[i][j] = '-';
 		}
