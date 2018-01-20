@@ -67,15 +67,15 @@ public class Interface extends JFrame implements ActionListener{
     public void menuset(){
 	menuBar= new JMenuBar();
 
-	menu=new JMenu("Options");
-	menu.getAccessibleContext().setAccessibleDescription("Select Options");
+	//menu=new JMenu("Options");
+	//menu.getAccessibleContext().setAccessibleDescription("Select Options");
 
 	newgame= new JButton ("New Game");
 	newgame.addActionListener(this);
 	//newgame.setBounds(11,11,10,1);
-	menu.add(newgame);
+	//menu.add(newgame);
 
-	menuBar.add(menu);
+	menuBar.add(newgame);
 	setJMenuBar(menuBar);
     }
 
