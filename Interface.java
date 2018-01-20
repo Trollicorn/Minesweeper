@@ -16,9 +16,11 @@ public class Interface extends JFrame implements ActionListener{
     public Interface(){
 	reset();
 	menuset();
+	flag();
     }
 
     public void actionPerformed(ActionEvent e){
+	flagnum.setText(flagcount()+"/"+mines+" mines flagged");
 	String s=e.getActionCommand();
 	if (s.equals("New Game")){
 	    this.dispose();
@@ -44,6 +46,7 @@ public class Interface extends JFrame implements ActionListener{
 	makeBoard();
 	for (int i=0; i < board.length * board[0].length; i++){
 	    buttonMap[i / 10][i % 10] = new MineButton(board, i / 10, i % 10, buttonMap);
+	    buttonMap[i/10][i%10].addActionListener(this);
 	    buttonMap[i / 10][i % 10].addMouseListener(new MineListener(buttonMap[i / 10][i % 10],buttonMap,board));
 	    buttonMap[i / 10][i % 10].setText("");
 	    /*		MineButton button = new MineButton(board, i / 10, i % 10,buttonMap);
@@ -72,15 +75,16 @@ public class Interface extends JFrame implements ActionListener{
 	//newgame.setBounds(11,11,10,1);
 	menu.add(newgame);
 
-	flagnum=new JTextField(5);
-	flagnum.setText(flagcount()+"/"+mines+" mines flagged");
-	flagnum.setEditable(false);
-
 	menuBar.add(menu);
-	menuBar.add(flagnum);
 	setJMenuBar(menuBar);
     }
 
+    public void flag(){
+	flagnum=new JTextField(5);
+	flagnum.setText(flagcount()+"/"+mines+" mines flagged");
+	flagnum.setEditable(false);
+	menuBar.add(flagnum);
+    }
 
     public int flagcount(){
 	int count=0;
