@@ -13,15 +13,17 @@ public class MineButton extends JButton{
 	private MineButton[][] buttonMap;
 	private boolean firstHit=true;
 	private boolean revealTime=false;
+	private ImageIcon[] icons;
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap){
+	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap, ImageIcon[] icons){
 		super();
 		this.board = board;
 		this.row = row;
 		this.col = col;
 		this.buttonMap = buttonMap;
+		this.icons = icons;
 		flagged = false;
 		covered = true;
 		revealTime = false;
@@ -77,27 +79,29 @@ public class MineButton extends JButton{
 		}
 		covered = false;
 		setBackground(Color.LIGHT_GRAY);
+	/*	
 		ImageIcon mineIcon= new ImageIcon("Icons/mine.png");
 		Image mineImage = mineIcon.getImage();
 		Image mineImageScaled = mineImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-
+	*/
 	//	ImageIcon scaledIcon = new ImageIcon(mineIcon.getImage().getScaledInstance(1,1,Image.SCALE_SMOOTH));
 		if (buttonMap[0][0].isRevealTime()){
 			setBackground(Color.CYAN);
 		}
 		if (board[getRow()][getCol()] == 'm'){
-			setIcon(new ImageIcon(mineImageScaled));
+			setIcon(icons[9]);
 			setBackground(Color.RED);
 	//		setText(""+board[getRow()][getCol()]);
 			endGame=true;
 			mineHit=true;
 		}else{
-			if (countMinesAround()!=0){
-				String minesAround = "" + countMinesAround();
+			int minesAround = countMinesAround();
+			if (minesAround !=0){
+				/*String minesAround = "" + countMinesAround();
 				ImageIcon numIcon= new ImageIcon("Icons/" + minesAround + ".png");
 				Image numImage = numIcon.getImage();
 				Image numImageScaled = numImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-				setIcon(new ImageIcon(numImageScaled));
+				*/setIcon(icons[minesAround]);
 			//	setText(""+countMinesAround());
 			}
 			else{
@@ -131,7 +135,6 @@ public class MineButton extends JButton{
 					buttonMap[getRow()][getCol()-1].uncover();
 				}
 			}
-			//	zero=true;
 		}
 		if (allUncovered()){
 			endGame = true;
@@ -144,13 +147,13 @@ public class MineButton extends JButton{
 
 	public void flag(){
 		flagged = !flagged;
-		ImageIcon flagIcon= new ImageIcon("Icons/flag.png");
+	/*	ImageIcon flagIcon= new ImageIcon("Icons/flag.png");
 		Image flagImage = flagIcon.getImage();
 		Image flagImageScaled = flagImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-
+	*/
 		if (isFlagged()){
 
-			setIcon(new ImageIcon(flagImageScaled));
+			setIcon(icons[0]);
 	//		setText("f");
 		}else{
 			setIcon(null);

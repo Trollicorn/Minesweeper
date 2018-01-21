@@ -15,6 +15,9 @@ public class Interface extends JFrame implements ActionListener{
     private int mines;
     private int h;
     private int w;
+    private ImageIcon[] icons = new ImageIcon[10];
+    private int buttonHeight;
+    private int buttonWidth;
 
     public Interface(){
     	reset(10,10,500,500);
@@ -22,6 +25,7 @@ public class Interface extends JFrame implements ActionListener{
     	h=10;
     	w=10;
     	flag();
+        setIcons(50,50);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -65,12 +69,14 @@ public class Interface extends JFrame implements ActionListener{
     	pane.setBackground(Color.BLUE);
     	makeBoard();
     	for (int i=0; i < board.length * board[0].length; i++){
-    		buttonMap[i / h][i % w] = new MineButton(board, i / h, i % w, buttonMap);
+    		buttonMap[i / h][i % w] = new MineButton(board, i / h, i % w, buttonMap, icons);
     		buttonMap[i/h][i%w].addActionListener(this);
     		buttonMap[i / h][i % w].addMouseListener(new MineListener(buttonMap[i / h][i % w],buttonMap,board));
     		buttonMap[i / h][i % w].setText("");
     		pane.add(buttonMap[i / h][i % w]);
-    	}
+        /*    buttonHeight = buttonMap[i / h][i % w].getHeight();
+            buttonWidth = buttonMap[i / h][i % w].getWidth();
+    	*/}
 
     }
 
@@ -136,13 +142,14 @@ public class Interface extends JFrame implements ActionListener{
     	}
     }
 
-    public Interface (String mode){
+    public Interface(String mode){
     	if (mode.equals("easy")){
     		reset(5,5,500,500);
     		h=5;
     		w=5;
     		menuSet();
     		flag();
+            setIcons(110,110);
     	}
     	if (mode.equals("hard")){
     		reset(20,20,1000,1000);
@@ -150,9 +157,29 @@ public class Interface extends JFrame implements ActionListener{
     		w=20;
     		menuSet();
     		flag();
+            setIcons(53,40);
     	}
 
     }
+
+    public void setIcons(int width, int height){
+        for (int i = 0; i < 10; i++){
+            String location = "" + i;
+            if (i == 0){
+                location = "flag";
+            }
+            if (i == 9){
+                location = "mine";
+            }
+            ImageIcon icon= new ImageIcon("Icons/" + location + ".png");
+            Image image = icon.getImage();
+            Image imageScaled = image.getScaledInstance(width,height,Image.SCALE_FAST);
+            icons[i] = new ImageIcon(imageScaled);
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
     	Interface g = new Interface();
