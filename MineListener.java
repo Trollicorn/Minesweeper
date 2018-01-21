@@ -162,18 +162,13 @@ public class MineListener extends MouseAdapter{
 		buttonMap[0][0].timeToReveal();
 		for (int i = 0; i < board.length; i++){
 			for (int j = 0; j < board[0].length; j++){
-				buttonMap[i][j].uncover();
+				if (buttonMap[i][j].isCovered()){
+					buttonMap[i][j].uncover();
+				}
 			}
 		}
-		disableAll();
+
 	}
 
-	public void disableAll(){
-		for (int i = 0; i < board.length; i++){
-			for (int j = 0; j < board[0].length; j++){
-				buttonMap[i][j].setEnabled(false);
-			}
-		}
-	}
 
 }
