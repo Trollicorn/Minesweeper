@@ -78,20 +78,22 @@ public class MineButton extends JButton{
 		}
 		covered = false;
 		setBackground(Color.LIGHT_GRAY);
-	//	ImageIcon mineIcon= new ImageIcon("bomb.png");
+		ImageIcon mineIcon= new ImageIcon("bomb.png");
+		Image mineImage = mineIcon.getImage();
+		Image mineImageScaled = mineImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_SMOOTH);
 	//	ImageIcon scaledIcon = new ImageIcon(mineIcon.getImage().getScaledInstance(1,1,Image.SCALE_SMOOTH));
 		if (buttonMap[0][0].isRevealTime()){
 			setBackground(Color.CYAN);
 		}
 		if (board[getRow()][getCol()] == 'm'){
-	//		setIcon(mineIcon);
-			setText(""+board[getRow()][getCol()]);
+			setIcon(new ImageIcon(mineImageScaled));
+			setBackground(Color.RED);
+	//		setText(""+board[getRow()][getCol()]);
 			endGame=true;
 			mineHit=true;
 		}else{
 			if (countMinesAround()!=0){
 				setText(""+countMinesAround());
-			//	zero=false;
 			}
 			else{
 				setText("");
