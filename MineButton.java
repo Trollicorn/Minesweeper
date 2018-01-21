@@ -83,30 +83,19 @@ public class MineButton extends JButton{
 		}
 		covered = false;
 		setBackground(Color.LIGHT_GRAY);
-	/*	
-		ImageIcon mineIcon= new ImageIcon("Icons/mine.png");
-		Image mineImage = mineIcon.getImage();
-		Image mineImageScaled = mineImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-	*/
-	//	ImageIcon scaledIcon = new ImageIcon(mineIcon.getImage().getScaledInstance(1,1,Image.SCALE_SMOOTH));
+	
 		if (buttonMap[0][0].isRevealTime()){
 			setBackground(Color.LIGHT_GRAY);
 		}
 		if (board[getRow()][getCol()] == 'm'){
 			setIcon(icons[9]);
-	//		setBackground(Color.RED);
-	//		setText(""+board[getRow()][getCol()]);
+	
 			endGame=true;
 			mineHit=true;
 		}else{
 			int minesAround = countMinesAround();
 			if (minesAround !=0){
-				/*String minesAround = "" + countMinesAround();
-				ImageIcon numIcon= new ImageIcon("Icons/" + minesAround + ".png");
-				Image numImage = numIcon.getImage();
-				Image numImageScaled = numImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-				*/setIcon(icons[minesAround]);
-			//	setText(""+countMinesAround());
+				setIcon(icons[minesAround]);
 			}
 			else{
 				setText("");
@@ -114,28 +103,28 @@ public class MineButton extends JButton{
 				boolean notColZero = getCol() != 0; 
 				boolean notRowLast = getRow() != board.length - 1;
 				boolean notColLast = getCol() != board[0].length - 1;
-				if (notRowZero && notColZero){  // top left
+				if (notRowZero && notColZero){               // top left
 					buttonMap[getRow()-1][getCol()-1].uncover();
 				} 
-				if (notRowZero){                  // top mid 
+				if (notRowZero){                             // top mid 
 					buttonMap[getRow()-1][getCol()].uncover();
 				}
-				if (notRowZero && notColLast){                // top right 
+				if (notRowZero && notColLast){               // top right 
 					buttonMap[getRow()-1][getCol()+1].uncover();
 				}
-				if (notColLast){                  // mid right 
+				if (notColLast){                             // mid right 
 					buttonMap[getRow()][getCol()+1].uncover();
 				}
-				if (notRowLast && notColLast){  // bot right 
+				if (notRowLast && notColLast){               // bot right 
 					buttonMap[getRow()+1][getCol()+1].uncover();
 				}
-				if (notRowLast){                  // bot mid 
+				if (notRowLast){                             // bot mid 
 					buttonMap[getRow()+1][getCol()].uncover();
 				}
-				if (notRowLast && notColZero){  // bot left 
+				if (notRowLast && notColZero){               // bot left 
 					buttonMap[getRow()+1][getCol()-1].uncover();
 				}
-				if (notColZero){                  // mid left 
+				if (notColZero){                             // mid left 
 					buttonMap[getRow()][getCol()-1].uncover();
 				}
 			}
@@ -146,25 +135,17 @@ public class MineButton extends JButton{
 
 	}
 
-
-
-
 	public void flag(){
 		flagged = !flagged;
-	/*	ImageIcon flagIcon= new ImageIcon("Icons/flag.png");
-		Image flagImage = flagIcon.getImage();
-		Image flagImageScaled = flagImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
-	*/
+	
 		int flags = Integer.parseInt(flagNum.getText().substring(14).trim());
 		String begin = flagNum.getText().substring(0,14);
 		if (isFlagged()){
 			setIcon(icons[0]);
 			flags += 1;
-	//		setText("f");
 		}else{
 			setIcon(null); 
 			flags -= 1;
-			//setText("");
 		}
 		flagNum.setText(begin + flags);
 	}
@@ -182,7 +163,7 @@ public class MineButton extends JButton{
 		if (notRowZero && board[getRow()-1][getCol()] == 'm'){                  // top mid 
 			count += 1;
 		}
-		if (notRowZero && notColLast && board[getRow()-1][getCol()+1] == 'm'){                // top right 
+		if (notRowZero && notColLast && board[getRow()-1][getCol()+1] == 'm'){  // top right 
 			count += 1;
 		}
 		if (notColLast && board[getRow()][getCol()+1] == 'm'){                  // mid right 
@@ -237,7 +218,6 @@ public class MineButton extends JButton{
 		return count;
 	}
 
-
 	public boolean allUncovered(){
 		for (int i = 0; i < board.length; i ++){
 			for (int j = 0; j < board[0].length; j++){
@@ -248,8 +228,5 @@ public class MineButton extends JButton{
 		}
 		return true;
 	}
-
-
-
 
 }
