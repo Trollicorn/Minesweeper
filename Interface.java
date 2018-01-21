@@ -59,6 +59,7 @@ public class Interface extends JFrame implements ActionListener{
     	this.setTitle("MineSweeper");
     	this.setSize(a,b);
     	this.setLocation(5,5);
+        this.setResizable(false);
     	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	//	game = this;

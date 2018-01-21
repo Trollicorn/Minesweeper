@@ -86,11 +86,11 @@ public class MineButton extends JButton{
 	*/
 	//	ImageIcon scaledIcon = new ImageIcon(mineIcon.getImage().getScaledInstance(1,1,Image.SCALE_SMOOTH));
 		if (buttonMap[0][0].isRevealTime()){
-			setBackground(Color.CYAN);
+			setBackground(Color.LIGHT_GRAY);
 		}
 		if (board[getRow()][getCol()] == 'm'){
 			setIcon(icons[9]);
-			setBackground(Color.RED);
+	//		setBackground(Color.RED);
 	//		setText(""+board[getRow()][getCol()]);
 			endGame=true;
 			mineHit=true;
