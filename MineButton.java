@@ -14,10 +14,7 @@ public class MineButton extends JButton{
 	private MineButton[][] buttonMap;
 	private boolean firstHit=true;
 	private boolean revealTime=false;
-/*	private boolean zero;
-	private int i;
-	private int j;
-*/
+
 
     //Constructors 
 
@@ -192,7 +189,7 @@ public class MineButton extends JButton{
 		if (notRowZero && buttonMap[getRow()-1][getCol()].isFlagged()){                  // top mid 
 			count += 1;
 		}
-		if (notRowZero && notColLast && buttonMap[getRow()-1][getCol()+1].isFlagged()){                // top right 
+		if (notRowZero && notColLast && buttonMap[getRow()-1][getCol()+1].isFlagged()){  // top right 
 			count += 1;
 		}
 		if (notColLast && buttonMap[getRow()][getCol()+1].isFlagged()){                  // mid right 

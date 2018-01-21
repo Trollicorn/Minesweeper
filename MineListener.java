@@ -129,6 +129,7 @@ public class MineListener extends MouseAdapter{
 	public void gameOver(MineButton button,boolean showMessage){
 		if (showMessage && !buttonMap[0][0].isRevealTime()){
 			if (button.isMineHit()){
+				myButton.setBackground(Color.RED);
 				endPage("Game Over. You Lose.");
 				reveal();
 			}
