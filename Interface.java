@@ -58,7 +58,7 @@ public class Interface extends JFrame implements ActionListener{
     	buttonMap= new MineButton[h][w];
     	this.setTitle("MineSweeper");
     	this.setSize(a,b);
-    	this.setLocation(100,100);
+    	this.setLocation(5,5);
     	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	//	game = this;
@@ -152,12 +152,12 @@ public class Interface extends JFrame implements ActionListener{
             setIcons(110,110);
     	}
     	if (mode.equals("hard")){
-    		reset(20,20,1000,1000);
+    		reset(20,20,500,500);
     		h=20;
     		w=20;
     		menuSet();
     		flag();
-            setIcons(53,40);
+            setIcons(25,22);
     	}
 
     }
