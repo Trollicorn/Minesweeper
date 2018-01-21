@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class Interface extends JFrame implements ActionListener{
+public class MineGame extends JFrame implements ActionListener{
 	private Container pane;
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -19,7 +19,7 @@ public class Interface extends JFrame implements ActionListener{
     private int buttonHeight;
     private int buttonWidth;
 
-    public Interface(){
+    public MineGame(){
     	reset(10,10,500,500);
     	menuSet();
     	h=10;
@@ -34,19 +34,19 @@ public class Interface extends JFrame implements ActionListener{
     	if (s.equals("Easy")){
     		this.dispose();
     		System.out.println(s);
-    		Interface f= new Interface("easy");
+    		MineGame f= new MineGame("easy");
     		f.setVisible(true);
     	}
     	if (s.equals("Medium")){
     		this.dispose();
     		System.out.println(s);
-    		Interface f= new Interface();
+    		MineGame f= new MineGame();
     		f.setVisible(true);
     	}
     	if (s.equals("Hard")){
     		this.dispose();
     		System.out.println(s);
-    		Interface f= new Interface("hard");
+    		MineGame f= new MineGame("hard");
     		f.setVisible(true);
     	}
     }
@@ -143,7 +143,7 @@ public class Interface extends JFrame implements ActionListener{
     	}
     }
 
-    public Interface(String mode){
+    public MineGame(String mode){
     	if (mode.equals("easy")){
     		reset(5,5,500,500);
     		h=5;
@@ -183,7 +183,7 @@ public class Interface extends JFrame implements ActionListener{
 
 
     public static void main(String[] args) {
-    	Interface g = new Interface();
+    	MineGame g = new MineGame();
     	g.setVisible(true);
     }
 }
