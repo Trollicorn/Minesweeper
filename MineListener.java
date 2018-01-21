@@ -6,12 +6,13 @@ public class MineListener extends MouseAdapter{
 	private MineButton myButton;
 	private MineButton[][] buttonMap;
 	private char[][] board;
-	//private JTextField text;
+	private JTextField mineNum;
 
-	public MineListener(MineButton button,MineButton[][] buttonMap, char[][] board){
+	public MineListener(MineButton button,MineButton[][] buttonMap, char[][] board, JTextField mineNum){
 		myButton = button;
 		this.buttonMap = buttonMap;
 		this.board = board;
+		this.mineNum = mineNum;
 	}
 
 	public void mouseClicked(MouseEvent click){
@@ -54,6 +55,16 @@ public class MineListener extends MouseAdapter{
 							buttonMap[i][j].notFirst();
 						}
 					}
+					int mines = 0; 
+					for (int i = 0; i < board.length; i++){
+						for (int j = 0; j < board[0].length; j++){
+							if (board[i][j] == 'm'){
+								mines++;
+							}
+						}
+					}
+					String begin = mineNum.getText().substring(0,7);
+					mineNum.setText(begin + mines);
 				}
 				myButton.uncover();
 				if (myButton.isEndGame()){

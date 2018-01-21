@@ -14,16 +14,20 @@ public class MineButton extends JButton{
 	private boolean firstHit=true;
 	private boolean revealTime=false;
 	private ImageIcon[] icons;
+	private JTextField flagNum;
+	private JTextField mineNum;
 
     //Constructors 
 
-	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap, ImageIcon[] icons){
+	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap, ImageIcon[] icons, JTextField flagNum, JTextField mineNum){
 		super();
 		this.board = board;
 		this.row = row;
 		this.col = col;
 		this.buttonMap = buttonMap;
 		this.icons = icons;
+		this.flagNum = flagNum;
+		this.mineNum = mineNum;
 		flagged = false;
 		covered = true;
 		revealTime = false;
@@ -151,14 +155,18 @@ public class MineButton extends JButton{
 		Image flagImage = flagIcon.getImage();
 		Image flagImageScaled = flagImage.getScaledInstance(getWidth(),getHeight(),Image.SCALE_FAST);
 	*/
+		int flags = Integer.parseInt(flagNum.getText().substring(14).trim());
+		String begin = flagNum.getText().substring(0,14);
 		if (isFlagged()){
-
 			setIcon(icons[0]);
+			flags += 1;
 	//		setText("f");
 		}else{
-			setIcon(null);
+			setIcon(null); 
+			flags -= 1;
 			//setText("");
 		}
+		flagNum.setText(begin + flags);
 	}
 
 	public int countMinesAround(){

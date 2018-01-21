@@ -12,6 +12,7 @@ public class MineGame extends JFrame implements ActionListener{
     private char[][] board;// = new char[10][10];
     private MineButton[][] buttonMap;// = new MineButton[10][10];
     private JTextField flagNum;
+    private JTextField mineNum;
     private int mines;
     private int h;
     private int w;
@@ -20,6 +21,8 @@ public class MineGame extends JFrame implements ActionListener{
     private int buttonWidth;
 
     public MineGame(){
+        flagNum = new JTextField(5);
+        mineNum = new JTextField(5);
     	reset(10,10,500,500);
     	menuSet();
     	h=10;
@@ -29,7 +32,7 @@ public class MineGame extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e){
-    	flagNum.setText(flagCount()+"/"+mines+" mines flagged");
+    //	flagNum.setText(flagCount()+"/"+mines+" mines flagged");
     	String s=e.getActionCommand();
     	if (s.equals("Easy")){
     		this.dispose();
@@ -70,9 +73,9 @@ public class MineGame extends JFrame implements ActionListener{
     	pane.setBackground(Color.BLUE);
     	makeBoard();
     	for (int i=0; i < board.length * board[0].length; i++){
-    		buttonMap[i / h][i % w] = new MineButton(board, i / h, i % w, buttonMap, icons);
+    		buttonMap[i / h][i % w] = new MineButton(board, i / h, i % w, buttonMap, icons, flagNum, mineNum);
     		buttonMap[i/h][i%w].addActionListener(this);
-    		buttonMap[i / h][i % w].addMouseListener(new MineListener(buttonMap[i / h][i % w],buttonMap,board));
+    		buttonMap[i / h][i % w].addMouseListener(new MineListener(buttonMap[i / h][i % w],buttonMap,board, mineNum));
     		buttonMap[i / h][i % w].setText("");
     		pane.add(buttonMap[i / h][i % w]);
         /*    buttonHeight = buttonMap[i / h][i % w].getHeight();
@@ -112,13 +115,17 @@ public class MineGame extends JFrame implements ActionListener{
     }
 
     public void flag(){
-    	flagNum=new JTextField(5);
-    	flagNum.setText(flagCount()+"/"+mines+" mines flagged");
+    	//flagNum = new JTextField(5);
+        //mineNum = new JTextField(5);
+    	flagNum.setText("Flags Placed: 0");
+        mineNum.setText("Mines: click square first");
+        mineNum.setEditable(false);
     	flagNum.setEditable(false);
+        menuBar.add(mineNum);
     	menuBar.add(flagNum);
     }
 
-    public int flagCount(){
+/*    public int flagCount(){
     	int count=0;
     	for (int i=0; i < board.length * board[0].length; i++){
     		if((buttonMap[i / h][i % w]).isFlagged()){
@@ -128,7 +135,7 @@ public class MineGame extends JFrame implements ActionListener{
 
     	return count;
     }
-
+*/
     public void makeBoard(){
     	int denominator = 5;
     	for (int i = 0; i < board.length; i++){
