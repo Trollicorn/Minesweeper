@@ -15,7 +15,6 @@ public class MineButton extends JButton{
 	private boolean firstHit=true;
 	private boolean revealTime=false;
 
-
     //Constructors 
 
 	public MineButton(char[][] board, int row, int col, MineButton[][] buttonMap){
@@ -79,10 +78,13 @@ public class MineButton extends JButton{
 		}
 		covered = false;
 		setBackground(Color.LIGHT_GRAY);
+	//	ImageIcon mineIcon= new ImageIcon("bomb.png");
+	//	ImageIcon scaledIcon = new ImageIcon(mineIcon.getImage().getScaledInstance(1,1,Image.SCALE_SMOOTH));
 		if (buttonMap[0][0].isRevealTime()){
 			setBackground(Color.CYAN);
 		}
 		if (board[getRow()][getCol()] == 'm'){
+	//		setIcon(mineIcon);
 			setText(""+board[getRow()][getCol()]);
 			endGame=true;
 			mineHit=true;

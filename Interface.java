@@ -122,7 +122,6 @@ public class Interface extends JFrame implements ActionListener{
     	return count;
     }
 
-    // ImageIcon mineicon=new ImageIcon("bomb.png");
     public void makeBoard(){
     	int denominator = 5;
     	for (int i = 0; i < board.length; i++){
